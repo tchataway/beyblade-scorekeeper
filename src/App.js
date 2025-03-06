@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Scoreboard from './components/Scoreboard'
 import ScoreControls from './components/ScoreControls'
-import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
   const [player1Rounds, setPlayer1Rounds] = useState(0)
