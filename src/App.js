@@ -14,6 +14,7 @@ function App() {
   })
   const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
   const [showMatchResultModal, setShowMatchResultModal] = useState(false)
+  const [matchOver, setMatchOver] = useState(false)
 
   const { playerOnePoints, playerOneRounds, playerTwoPoints, playerTwoRounds } =
     scores
@@ -55,12 +56,21 @@ function App() {
 
     if (highestRounds < gameSettings.roundsPerMatch / 2) {
       // Not enough rounds won yet.
-      setShowMatchResultModal(false)
+      setMatchOver(false)
       return
     }
 
-    setShowMatchResultModal(true)
+    setMatchOver(true)
   }, [playerOneRounds, playerTwoRounds, gameSettings])
+
+  // Match over modal.
+  useEffect(() => {
+    if (matchOver) {
+      setShowMatchResultModal(true)
+    } else {
+      setShowMatchResultModal(false)
+    }
+  }, [matchOver])
 
   const handlePlayer1Score = (points) => {
     execute({
@@ -97,9 +107,7 @@ function App() {
   }
 
   const xStyling =
-    roundEndConfirmation || showMatchResultModal
-      ? 'backgroundX redX'
-      : 'backgroundX'
+    roundEndConfirmation || matchOver ? 'backgroundX redX' : 'backgroundX'
 
   return (
     <>
@@ -107,7 +115,7 @@ function App() {
       <Scoreboard
         player1Scores={player1Scores}
         player2Scores={player2Scores}
-        fade={roundEndConfirmation || showMatchResultModal}
+        fade={roundEndConfirmation || matchOver}
       />
       <Options
         undoAndRedo={undoAndRedo}
@@ -120,7 +128,7 @@ function App() {
         onSpin={() => handlePlayer1Score(1)}
         onXtreme={() => handlePlayer1Score(3)}
         onOver={() => handlePlayer1Score(2)}
-        lockControls={roundEndConfirmation || showMatchResultModal}
+        lockControls={roundEndConfirmation || matchOver}
       />
       <ScoreControls
         side='right'
@@ -128,7 +136,7 @@ function App() {
         onSpin={() => handlePlayer2Score(1)}
         onXtreme={() => handlePlayer2Score(3)}
         onOver={() => handlePlayer2Score(2)}
-        lockControls={roundEndConfirmation || showMatchResultModal}
+        lockControls={roundEndConfirmation || matchOver}
       />
       {roundEndConfirmation && (
         <div className='roundEndControls'>
