@@ -35,20 +35,6 @@ function App() {
     <>
       <div className='backgroundX' />
       <Scoreboard player1Scores={player1Scores} player2Scores={player2Scores} />
-      <ScoreControls
-        side='left'
-        onBurst={() => handlePlayer1Score(2)}
-        onSpin={() => handlePlayer1Score(1)}
-        onXtreme={() => handlePlayer1Score(3)}
-        onOver={() => handlePlayer1Score(2)}
-      />
-      <ScoreControls
-        side='right'
-        onBurst={() => handlePlayer2Score(2)}
-        onSpin={() => handlePlayer2Score(1)}
-        onXtreme={() => handlePlayer2Score(3)}
-        onOver={() => handlePlayer2Score(2)}
-      />
       <div className='optionsContainer'>
         <div className='options'>
           <button className='button' disabled={!canUndo} onClick={undo}>
@@ -68,6 +54,20 @@ function App() {
           </button>
         </div>
       </div>
+      <ScoreControls
+        side='left'
+        onBurst={() => handlePlayer1Score(2)}
+        onSpin={() => handlePlayer1Score(1)}
+        onXtreme={() => handlePlayer1Score(3)}
+        onOver={() => handlePlayer1Score(2)}
+      />
+      <ScoreControls
+        side='right'
+        onBurst={() => handlePlayer2Score(2)}
+        onSpin={() => handlePlayer2Score(1)}
+        onXtreme={() => handlePlayer2Score(3)}
+        onOver={() => handlePlayer2Score(2)}
+      />
     </>
   )
 }
