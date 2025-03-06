@@ -40,16 +40,13 @@ code {
 .button {
   background: none;
   border: none;
+  user-select: none;
   color: white;
   padding: 16px;
 }
 
 .button:disabled {
   opacity: 0.5;
-}
-
-.button:active {
-  background: none;
 }
 
 .backgroundX {
@@ -140,6 +137,10 @@ code {
   border: none;
 }
 
+.scoreButton:disabled {
+  opacity: 0.5;
+}
+
 .rotateForRight {
   transform: rotate(-90deg);
 }
@@ -166,4 +167,93 @@ code {
 .over {
   background-color: #a2ff1f;
   color: #000000;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #3b3b3b;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modalHeader {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modalContainer {
+  font-size: 24px;
+}
+
+.settingsFormItem {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.settingsFormButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.buttonPrimary {
+  border-radius: 15px;
+  background-color: var(--color-secondary);
+  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 12px 24px;
+}
+
+.input {
+  font-size: 24px;
+  width: 5rem;
+  color: #000000;
+}
+
+.roundEndControls {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.faded {
+  opacity: 0.5;
+}
+
+.full {
+  opacity: 1;
 }

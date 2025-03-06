@@ -25,9 +25,69 @@ const useScoreTracking = () => {
         newPoints = scores.playerOnePoints + command.value
         setScores((prevState) => ({ ...prevState, playerOnePoints: newPoints }))
         break
+
       case 'addPointsPlayerTwo':
         newPoints = scores.playerTwoPoints + command.value
         setScores((prevState) => ({ ...prevState, playerTwoPoints: newPoints }))
+        break
+
+      case 'confirmRoundResult':
+        // This action works differently as it
+        // impacts multiple states.
+        if (command.value === 1) {
+          // A value of 1 indicates we are "doing". not
+          // "undoing". Cache point totals for later.
+          command.payload = {
+            playerOneEndofRoundPoints: scores.playerOnePoints,
+            playerTwoEndofRoundPoints: scores.playerTwoPoints,
+          }
+
+          // Who won?
+          let updatedPlayerOneRounds = scores.playerOneRounds
+          let updatedPlayerTwoRounds = scores.playerTwoRounds
+          if (scores.playerOnePoints > scores.playerTwoPoints) {
+            // Add to player one's match score.
+            updatedPlayerOneRounds += command.value
+          } else if (scores.playerTwoPoints > scores.playerOnePoints) {
+            // Add to player one's match score.
+            updatedPlayerTwoRounds += command.value
+          }
+
+          // Update state.
+          setScores((prevState) => ({
+            ...prevState,
+            playerOneRounds: updatedPlayerOneRounds,
+            playerTwoRounds: updatedPlayerTwoRounds,
+            playerOnePoints: 0,
+            playerTwoPoints: 0,
+          }))
+        } else if (command.value === -1) {
+          // A value of 1 indicates we are "undoing" a
+          // round result. This involves subtracting from
+          // one player's rounds total and resetting points
+          // to whatever was stored in the command's payload.
+          const { playerOneEndofRoundPoints, playerTwoEndofRoundPoints } =
+            command.payload
+
+          let updatedPlayerOneRounds = scores.playerOneRounds
+          let updatedPlayerTwoRounds = scores.playerTwoRounds
+
+          if (playerOneEndofRoundPoints > playerTwoEndofRoundPoints) {
+            // Reduce player one's rounds.
+            updatedPlayerOneRounds += command.value
+          } else if (playerTwoEndofRoundPoints > playerOneEndofRoundPoints) {
+            // Reduce player two's rounds.
+            updatedPlayerTwoRounds += command.value
+          }
+
+          setScores((prevState) => ({
+            ...prevState,
+            playerOneRounds: updatedPlayerOneRounds,
+            playerTwoRounds: updatedPlayerTwoRounds,
+            playerOnePoints: playerOneEndofRoundPoints,
+            playerTwoPoints: playerTwoEndofRoundPoints,
+          }))
+        }
         break
 
       default:
@@ -87,6 +147,47 @@ const useScoreTracking = () => {
     setRedoables(updatedRedoables)
   }
 
+  const matchReport = () => {
+    const report = []
+
+    // Rounds result.
+    report.push(`Rounds:`)
+    report.push(`${scores.playerOneRounds} - ${scores.playerTwoRounds}`)
+    report.push('')
+
+    // Points for each round:
+    let playerOneTotalPointsScored = 0
+    let playerTwoTotalPointsScored = 0
+    const roundResults = undoables.filter(
+      (command) => command.name === 'confirmRoundResult'
+    )
+    roundResults.forEach((roundResultCommand, index) => {
+      const { playerOneEndofRoundPoints, playerTwoEndofRoundPoints } =
+        roundResultCommand.payload
+      playerOneTotalPointsScored += playerOneEndofRoundPoints
+      playerTwoTotalPointsScored += playerTwoEndofRoundPoints
+
+      report.push(`Round ${index + 1}`)
+      report.push(`${playerOneEndofRoundPoints} - ${playerTwoEndofRoundPoints}`)
+    })
+
+    report.push('Total Points Scored:')
+    report.push(`${playerOneTotalPointsScored} - ${playerTwoTotalPointsScored}`)
+
+    return report
+  }
+
+  const reset = () => {
+    setScores({
+      playerOneRounds: 0,
+      playerOnePoints: 0,
+      playerTwoRounds: 0,
+      playerTwoPoints: 0,
+    })
+    setUndoables([])
+    setRedoables([])
+  }
+
   return {
     scores,
     execute,
@@ -94,6 +195,8 @@ const useScoreTracking = () => {
     redo,
     canUndo,
     canRedo,
+    matchReport,
+    reset,
   }
 }
 

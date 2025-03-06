@@ -1,5 +1,12 @@
 // It's just some buttons, really.
-const ScoreControls = ({ side, onBurst, onSpin, onXtreme, onOver }) => {
+const ScoreControls = ({
+  side,
+  onBurst,
+  onSpin,
+  onXtreme,
+  onOver,
+  lockControls,
+}) => {
   let rotation,
     position = ''
 
@@ -18,16 +25,32 @@ const ScoreControls = ({ side, onBurst, onSpin, onXtreme, onOver }) => {
 
   return (
     <div className={`scoreControlsContainer ${position}`}>
-      <button className={`scoreButton spin ${rotation}`} onClick={onSpin}>
+      <button
+        className={`scoreButton spin ${rotation}`}
+        onClick={onSpin}
+        disabled={lockControls}
+      >
         S
       </button>
-      <button className={`scoreButton burst ${rotation}`} onClick={onBurst}>
+      <button
+        className={`scoreButton burst ${rotation}`}
+        onClick={onBurst}
+        disabled={lockControls}
+      >
         B
       </button>
-      <button className={`scoreButton xtreme ${rotation}`} onClick={onXtreme}>
+      <button
+        className={`scoreButton xtreme ${rotation}`}
+        onClick={onXtreme}
+        disabled={lockControls}
+      >
         X
       </button>
-      <button className={`scoreButton over ${rotation}`} onClick={onOver}>
+      <button
+        className={`scoreButton over ${rotation}`}
+        onClick={onOver}
+        disabled={lockControls}
+      >
         O
       </button>
     </div>

@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Scoreboard from './components/Scoreboard'
 import ScoreControls from './components/ScoreControls'
 import useScoreTracking from './hooks/useScoreTracking'
+import Options from './components/Options'
+import Modal from './components/Modal'
 
 function App() {
-  const { scores, execute, undo, redo, canUndo, canRedo } = useScoreTracking()
+  const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
+    useScoreTracking()
+  const [gameSettings, setGameSettings] = useState({
+    pointsPerRound: 5,
+    roundsPerMatch: 3,
+  })
+  const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
+  const [showMatchResultModal, setShowMatchResultModal] = useState(false)
+
   const { playerOnePoints, playerOneRounds, playerTwoPoints, playerTwoRounds } =
     scores
 
@@ -16,6 +26,41 @@ function App() {
     rounds: playerTwoRounds,
     points: playerTwoPoints,
   }
+
+  const undoAndRedo = {
+    undo,
+    canUndo,
+    redo,
+    canRedo,
+  }
+
+  // Update UI on score changes.
+  useEffect(() => {
+    // Check if round is over.
+    const highestScore = Math.max(playerOnePoints, playerTwoPoints)
+
+    if (highestScore < gameSettings.pointsPerRound) {
+      // Scores aren't high enough to end the
+      // round yet.
+      setRoundEndConfirmation(false)
+      return
+    }
+
+    setRoundEndConfirmation(true)
+  }, [playerOnePoints, playerTwoPoints, gameSettings])
+
+  useEffect(() => {
+    // Check if match is over.
+    const highestRounds = Math.max(playerOneRounds, playerTwoRounds)
+
+    if (highestRounds < gameSettings.roundsPerMatch / 2) {
+      // Not enough rounds won yet.
+      setShowMatchResultModal(false)
+      return
+    }
+
+    setShowMatchResultModal(true)
+  }, [playerOneRounds, playerTwoRounds, gameSettings])
 
   const handlePlayer1Score = (points) => {
     execute({
@@ -31,35 +76,46 @@ function App() {
     })
   }
 
+  const handleOptionsChanged = (newOptions) => {
+    setGameSettings(newOptions)
+  }
+
+  const handleRoundEndConfirmation = () => {
+    execute({
+      name: 'confirmRoundResult',
+      value: 1,
+    })
+  }
+
+  const handleNewMatch = () => {
+    reset()
+  }
+
+  const xStyling =
+    roundEndConfirmation || showMatchResultModal
+      ? 'backgroundX redX'
+      : 'backgroundX'
+
   return (
     <>
-      <div className='backgroundX' />
-      <Scoreboard player1Scores={player1Scores} player2Scores={player2Scores} />
-      <div className='optionsContainer'>
-        <div className='options'>
-          <button className='button' disabled={!canUndo} onClick={undo}>
-            <i className='material-icons' style={{ fontSize: '36px' }}>
-              undo
-            </i>
-          </button>
-          <button className='button'>
-            <i className='material-icons' style={{ fontSize: '36px' }}>
-              settings
-            </i>
-          </button>
-          <button className='button' disabled={!canRedo} onClick={redo}>
-            <i className='material-icons' style={{ fontSize: '36px' }}>
-              redo
-            </i>
-          </button>
-        </div>
-      </div>
+      <div className={xStyling} />
+      <Scoreboard
+        player1Scores={player1Scores}
+        player2Scores={player2Scores}
+        fade={roundEndConfirmation || showMatchResultModal}
+      />
+      <Options
+        undoAndRedo={undoAndRedo}
+        onOptionsChanged={handleOptionsChanged}
+        currentOptions={gameSettings}
+      />
       <ScoreControls
         side='left'
         onBurst={() => handlePlayer1Score(2)}
         onSpin={() => handlePlayer1Score(1)}
         onXtreme={() => handlePlayer1Score(3)}
         onOver={() => handlePlayer1Score(2)}
+        lockControls={roundEndConfirmation || showMatchResultModal}
       />
       <ScoreControls
         side='right'
@@ -67,7 +123,34 @@ function App() {
         onSpin={() => handlePlayer2Score(1)}
         onXtreme={() => handlePlayer2Score(3)}
         onOver={() => handlePlayer2Score(2)}
+        lockControls={roundEndConfirmation || showMatchResultModal}
       />
+      {roundEndConfirmation && (
+        <div className='roundEndControls'>
+          <button
+            className='button buttonPrimary'
+            onClick={handleRoundEndConfirmation}
+          >
+            Confirm Round Result
+          </button>
+        </div>
+      )}
+      <Modal
+        header='Match Complete'
+        isOpen={showMatchResultModal}
+        closeModal={() => setShowMatchResultModal(false)}
+      >
+        <div
+          style={{ textAlign: 'center', overflow: 'auto', maxHeight: '180px' }}
+        >
+          {matchReport().map((reportLine, index) => (
+            <div key={index}>{reportLine}</div>
+          ))}
+        </div>
+        <button className='buttonPrimary' onClick={handleNewMatch}>
+          New Match
+        </button>
+      </Modal>
     </>
   )
 }
