@@ -18,11 +18,11 @@ const ScoreControls = ({ side, onBurst, onSpin, onXtreme, onOver }) => {
 
   return (
     <div className={`scoreControlsContainer ${position}`}>
-      <button className={`scoreButton burst ${rotation}`} onClick={onBurst}>
-        B
-      </button>
       <button className={`scoreButton spin ${rotation}`} onClick={onSpin}>
         S
+      </button>
+      <button className={`scoreButton burst ${rotation}`} onClick={onBurst}>
+        B
       </button>
       <button className={`scoreButton xtreme ${rotation}`} onClick={onXtreme}>
         X
