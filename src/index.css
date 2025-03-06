@@ -51,12 +51,15 @@ code {
   background: none;
   border: none;
   color: white;
-  cursor: pointer;
   padding: 16px;
 }
 
 .button:disabled {
   opacity: 0.5;
+}
+
+.button:active {
+  background: none;
 }
 
 .backgroundX {
