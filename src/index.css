@@ -20,16 +20,6 @@
 html {
   overflow-x: hidden;
   background-color: #000000;
-  /* Rotate the content container */
-  /* transform: rotate(90deg); */
-  /* transform-origin: right top; */
-  /* Set content width to viewport height */
-  /* width: 100vh; */
-  /* Set content height to viewport width */
-  /* height: 100vw;
-  position: absolute;
-  top: 100%;
-  right: 0; */
   height: 100%;
 }
 
