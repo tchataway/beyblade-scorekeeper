@@ -4,7 +4,6 @@ const Scoreboard = ({ player1Scores, player2Scores }) => {
 
   return (
     <>
-      <div className='backgroundX' />
       <div className='matchScores'>
         <h1 style={{ textAlign: 'right' }}>{player1Rounds}</h1>
         <h1 style={{ textAlign: 'center' }}> - </h1>

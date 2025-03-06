@@ -27,6 +27,7 @@ function App() {
 
   return (
     <>
+      <div className='backgroundX' />
       <Scoreboard player1Scores={player1Scores} player2Scores={player2Scores} />
       <ScoreControls
         side='left'

@@ -72,6 +72,11 @@ code {
   transform: rotate(-45deg);
 }
 
+.redX:before,
+.redX:after {
+  background-color: var(--red);
+}
+
 .roundScores {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -98,7 +103,6 @@ code {
   justify-content: space-around;
   height: 100%;
   position: absolute;
-  right: 0;
 }
 
 .positionForRight {
