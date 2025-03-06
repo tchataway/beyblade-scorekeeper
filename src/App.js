@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Scoreboard from './components/Scoreboard'
 import ScoreControls from './components/ScoreControls'
+import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
   const [player1Rounds, setPlayer1Rounds] = useState(0)
@@ -43,6 +44,25 @@ function App() {
         onXtreme={() => handlePlayer2Score(3)}
         onOver={() => handlePlayer2Score(2)}
       />
+      <div className='optionsContainer'>
+        <div className='options'>
+          <button className='button'>
+            <i className='material-icons' style={{ fontSize: '36px' }}>
+              undo
+            </i>
+          </button>
+          <button className='button'>
+            <i className='material-icons' style={{ fontSize: '36px' }}>
+              settings
+            </i>
+          </button>
+          <button className='button'>
+            <i className='material-icons' style={{ fontSize: '36px' }}>
+              redo
+            </i>
+          </button>
+        </div>
+      </div>
     </>
   )
 }

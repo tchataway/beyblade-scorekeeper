@@ -47,6 +47,14 @@ code {
     monospace;
 }
 
+.button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 16px;
+}
+
 .backgroundX {
   position: absolute;
   right: 50%; /* Previously: 32px */
@@ -95,6 +103,18 @@ code {
   width: 100%;
   gap: 1rem;
   font-size: 18pt;
+}
+
+.optionsContainer {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+}
+
+.options {
+  width: fit-content;
 }
 
 .scoreControlsContainer {
