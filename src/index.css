@@ -150,23 +150,31 @@ code {
 }
 
 .burst {
-  background-color: #04a8fc;
-  color: #000000;
+  background-color: var(--color-background);
+  color: var(--blue);
+  border: 5px solid;
+  border-color: var(--blue);
 }
 
 .spin {
-  background-color: #fae649;
-  color: #000000;
+  background-color: var(--color-background);
+  color: var(--yellow);
+  border: 5px solid;
+  border-color: var(--yellow);
 }
 
 .xtreme {
-  background-color: #f74450;
-  color: #000000;
+  background-color: var(--color-background);
+  color: var(--red);
+  border: 5px solid;
+  border-color: var(--red);
 }
 
 .over {
-  background-color: #a2ff1f;
-  color: #000000;
+  background-color: var(--color-background);
+  color: var(--color-secondary);
+  border: 5px solid;
+  border-color: var(--color-secondary);
 }
 
 /* The Modal (background) */
