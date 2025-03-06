@@ -22,6 +22,10 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
     onSubmit(settingsData)
   }
 
+  const handleNewMatch = () => {
+    onSubmit({ newMatch: true })
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className='settingsFormItem'>
@@ -54,9 +58,12 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
           }}
         />
       </div>
-      <div className='settingsFormButtons'>
+      <div className='modalButtons'>
         <button type='submit' className='button buttonPrimary'>
           Confirm
+        </button>
+        <button className='button buttonDanger' onClick={handleNewMatch}>
+          New Match
         </button>
       </div>
     </form>

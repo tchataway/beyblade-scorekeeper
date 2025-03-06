@@ -222,15 +222,24 @@ code {
   margin-top: 6px;
 }
 
-.settingsFormButtons {
+.modalButtons {
   display: flex;
   justify-content: space-around;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .buttonPrimary {
   border-radius: 15px;
   background-color: var(--color-secondary);
+  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 12px 24px;
+}
+
+.buttonDanger {
+  border-radius: 15px;
+  background-color: var(--red);
   color: #000000;
   font-size: 24px;
   font-weight: 600;

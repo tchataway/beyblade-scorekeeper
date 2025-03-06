@@ -151,9 +151,8 @@ const useScoreTracking = () => {
     const report = []
 
     // Rounds result.
-    report.push(`Rounds:`)
+    report.push(`Rounds`)
     report.push(`${scores.playerOneRounds} - ${scores.playerTwoRounds}`)
-    report.push('')
 
     // Points for each round:
     let playerOneTotalPointsScored = 0
@@ -167,11 +166,11 @@ const useScoreTracking = () => {
       playerOneTotalPointsScored += playerOneEndofRoundPoints
       playerTwoTotalPointsScored += playerTwoEndofRoundPoints
 
-      report.push(`Round ${index + 1}`)
+      report.push(`Round ${index + 1} Points`)
       report.push(`${playerOneEndofRoundPoints} - ${playerTwoEndofRoundPoints}`)
     })
 
-    report.push('Total Points Scored:')
+    report.push('Total Points Scored')
     report.push(`${playerOneTotalPointsScored} - ${playerTwoTotalPointsScored}`)
 
     return report

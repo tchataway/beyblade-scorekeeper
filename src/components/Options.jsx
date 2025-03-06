@@ -3,7 +3,6 @@ import Modal from './Modal'
 import SettingsForm from './SettingsForm'
 
 const Options = ({ undoAndRedo, currentOptions, onOptionsChanged }) => {
-  const [modalDisplay, setModalDisplay] = useState('none')
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const { undo, canUndo, redo, canRedo } = undoAndRedo

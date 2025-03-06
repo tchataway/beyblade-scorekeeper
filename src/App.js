@@ -77,6 +77,11 @@ function App() {
   }
 
   const handleOptionsChanged = (newOptions) => {
+    if (newOptions.newMatch) {
+      reset()
+      return
+    }
+
     setGameSettings(newOptions)
   }
 
@@ -147,9 +152,11 @@ function App() {
             <div key={index}>{reportLine}</div>
           ))}
         </div>
-        <button className='buttonPrimary' onClick={handleNewMatch}>
-          New Match
-        </button>
+        <div className='modalButtons'>
+          <button className='buttonPrimary' onClick={handleNewMatch}>
+            New Match
+          </button>
+        </div>
       </Modal>
     </>
   )
