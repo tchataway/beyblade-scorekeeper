@@ -58,7 +58,7 @@ code {
 .backgroundX {
   position: absolute;
   right: 50%; /* Previously: 32px */
-  top: 50%; /* Previously: 32px */
+  top: 47%; /* Previously: 32px */
   width: 1280px; /* Previously: 640px */
   height: 1280px; /* Previously: 640px */
   opacity: 1;
@@ -140,6 +140,7 @@ code {
   font-weight: 600;
   font-size: 36pt;
   user-select: none;
+  border: none;
 }
 
 .rotateForRight {
