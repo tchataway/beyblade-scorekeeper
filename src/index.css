@@ -1,13 +1,161 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  font-family: 'Tomorrow', sans-serif;
+  color: #fff;
+}
+
+:root {
+  --color-secondary: #a2ff1f;
+  --color-tertiary: #a2ff1f9e;
+  --color-background: #000000;
+  --red: #f74450;
+  --blue: #04a8fc;
+  --yellow: #fae649;
+}
+
+html {
+  overflow-x: hidden;
+  background-color: #000000;
+  /* Rotate the content container */
+  /* transform: rotate(90deg); */
+  /* transform-origin: right top; */
+  /* Set content width to viewport height */
+  /* width: 100vh; */
+  /* Set content height to viewport width */
+  /* height: 100vw;
+  position: absolute;
+  top: 100%;
+  right: 0; */
+  height: 100%;
+}
+
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.backgroundX {
+  position: absolute;
+  right: 50%; /* Previously: 32px */
+  top: 50%; /* Previously: 32px */
+  width: 640px; /* Previously: 32px */
+  height: 640px; /* Previously: 32px */
+  opacity: 1;
+  transform: translate(50%, -50%);
+}
+.backgroundX:before,
+.backgroundX:after {
+  position: absolute;
+  left: 300px; /* Previously: 15px */
+  content: ' ';
+  height: 660px; /* Previously: 33px */
+  width: 40px; /* Previously: 2px */
+  background-color: var(--color-secondary);
+}
+.backgroundX:before {
+  transform: rotate(45deg);
+}
+.backgroundX:after {
+  transform: rotate(-45deg);
+}
+
+/* .roundScoresContainer {
+  position: relative;
+  height: 100vh;
+} */
+
+.roundScores {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  /* height: 100%; */
+  width: 100%;
+  font-size: 72pt;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  /* transform: rotate(90deg); */
+  /* width: 100vh; */
+  /* height: 100vw; */
+  /* top: 30%; */
+  /* right: -62%; */
+  /* left: 50%; */
+  /* left: 50%; */
+  /* align-items: center; */
+  /* min-height: 100vw; */
+  /* margin-top: 2%; */
+}
+
+.matchScores {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  justify-content: space-around;
+  font-size: 18pt;
+}
+
+.scoreControlsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.positionForRight {
+  right: 0;
+}
+
+.positionForLeft {
+  left: 0;
+}
+
+.scoreButton {
+  border-radius: 15%;
+  width: 100px;
+  height: 100px;
+  font-weight: 600;
+  font-size: 36pt;
+}
+
+.rotateForRight {
+  transform: rotate(-90deg);
+}
+
+.rotateForLeft {
+  transform: rotate(90deg);
+}
+
+.burst {
+  background-color: #04a8fc;
+  color: #000000;
+}
+
+.spin {
+  background-color: #fae649;
+  color: #000000;
+}
+
+.xtreme {
+  background-color: #f74450;
+  color: #000000;
+}
+
+.over {
+  background-color: #a2ff1f;
+  color: #000000;
 }
