@@ -55,6 +55,10 @@ code {
   padding: 16px;
 }
 
+.button:disabled {
+  opacity: 0.5;
+}
+
 .backgroundX {
   position: absolute;
   right: 50%; /* Previously: 32px */

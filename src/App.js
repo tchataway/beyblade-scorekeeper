@@ -1,28 +1,34 @@
 import { useState } from 'react'
 import Scoreboard from './components/Scoreboard'
 import ScoreControls from './components/ScoreControls'
+import useScoreTracking from './hooks/useScoreTracking'
 
 function App() {
-  const [player1Rounds, setPlayer1Rounds] = useState(0)
-  const [player2Rounds, setPlayer2Rounds] = useState(0)
-  const [player1Points, setPlayer1Points] = useState(0)
-  const [player2Points, setPlayer2Points] = useState(0)
+  const { scores, execute, undo, redo, canUndo, canRedo } = useScoreTracking()
+  const { playerOnePoints, playerOneRounds, playerTwoPoints, playerTwoRounds } =
+    scores
 
   const player1Scores = {
-    rounds: player1Rounds,
-    points: player1Points,
+    rounds: playerOneRounds,
+    points: playerOnePoints,
   }
   const player2Scores = {
-    rounds: player2Rounds,
-    points: player2Points,
+    rounds: playerTwoRounds,
+    points: playerTwoPoints,
   }
 
   const handlePlayer1Score = (points) => {
-    setPlayer1Points((prevState) => prevState + points)
+    execute({
+      name: 'addPointsPlayerOne',
+      value: points,
+    })
   }
 
   const handlePlayer2Score = (points) => {
-    setPlayer2Points((prevState) => prevState + points)
+    execute({
+      name: 'addPointsPlayerTwo',
+      value: points,
+    })
   }
 
   return (
@@ -45,7 +51,7 @@ function App() {
       />
       <div className='optionsContainer'>
         <div className='options'>
-          <button className='button'>
+          <button className='button' disabled={!canUndo} onClick={undo}>
             <i className='material-icons' style={{ fontSize: '36px' }}>
               undo
             </i>
@@ -55,7 +61,7 @@ function App() {
               settings
             </i>
           </button>
-          <button className='button'>
+          <button className='button' disabled={!canRedo} onClick={redo}>
             <i className='material-icons' style={{ fontSize: '36px' }}>
               redo
             </i>
