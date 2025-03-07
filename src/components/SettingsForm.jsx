@@ -44,7 +44,9 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
         />
       </div>
       <div className='settingsFormItem'>
-        <label htmlFor='roundsPerMatch'>Rounds per match</label>
+        <label htmlFor='roundsPerMatch' className='modalText'>
+          Rounds per match
+        </label>
         <input
           id='roundsPerMatch'
           type='number'
