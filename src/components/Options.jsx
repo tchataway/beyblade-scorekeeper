@@ -4,6 +4,7 @@ import SettingsForm from './SettingsForm'
 
 const Options = ({ undoAndRedo, currentOptions, onOptionsChanged }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [settingsKey, setSettingsKey] = useState(false)
 
   const { undo, canUndo, redo, canRedo } = undoAndRedo
 
@@ -41,8 +42,19 @@ const Options = ({ undoAndRedo, currentOptions, onOptionsChanged }) => {
           </button>
         </div>
       </div>
-      <Modal header='Options' isOpen={modalIsOpen} closeModal={closeModal}>
-        <SettingsForm defaultOptions={currentOptions} onSubmit={handleSubmit} />
+      <Modal
+        header='Options'
+        isOpen={modalIsOpen}
+        closeModal={() => {
+          setSettingsKey((prevState) => !prevState) // Trick to reset SettingsForm to default values.
+          closeModal()
+        }}
+      >
+        <SettingsForm
+          key={settingsKey}
+          defaultOptions={currentOptions}
+          onSubmit={handleSubmit}
+        />
       </Modal>
     </>
   )
