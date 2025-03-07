@@ -30,7 +30,9 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className='settingsFormItem'>
-        <label htmlFor='pointsPerRound'>Points per round</label>
+        <label htmlFor='pointsPerRound' className='modalText'>
+          Points per round
+        </label>
         <input
           id='pointsPerRound'
           type='number'
