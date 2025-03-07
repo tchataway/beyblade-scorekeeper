@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import appVersion from '../utilities/appVersion'
 
 const SettingsForm = ({ defaultOptions, onSubmit }) => {
   const [settingsData, setSettingsData] = useState({
@@ -68,6 +69,7 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
           New Match
         </button>
       </div>
+      <div className='appVersion'>App Version: v{appVersion()}</div>
     </form>
   )
 }

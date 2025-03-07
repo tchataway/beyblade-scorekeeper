@@ -280,3 +280,11 @@ code {
 .full {
   opacity: 1;
 }
+
+.appVersion {
+  width: 100%;
+  text-align: right;
+  font-size: xx-small;
+  color: #888;
+  margin-top: 0.8rem;
+}
