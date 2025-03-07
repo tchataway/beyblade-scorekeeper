@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import appVersion from '../utilities/appVersion'
 
 const SettingsForm = ({ defaultOptions, onSubmit }) => {
@@ -20,6 +21,16 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    if (settingsData.pointsPerRound <= 0) {
+      toast.error('Points per round must be greater than 0')
+      return
+    }
+
+    if (settingsData.roundsPerMatch <= 0) {
+      toast.error('Rounds per match must be greater than 0')
+      return
+    }
+
     onSubmit(settingsData)
   }
 
@@ -35,8 +46,9 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
         </label>
         <input
           id='pointsPerRound'
-          type='number'
-          min='1'
+          type='text'
+          inputMode='numeric'
+          pattern='[0-9]*'
           value={pointsPerRound}
           onChange={handleFormChange}
           className='input'
@@ -52,8 +64,9 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
         </label>
         <input
           id='roundsPerMatch'
-          type='number'
-          min='1'
+          type='text'
+          inputMode='numeric'
+          pattern='[0-9]*'
           value={roundsPerMatch}
           onChange={handleFormChange}
           className='input'

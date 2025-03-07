@@ -4,6 +4,7 @@ import ScoreControls from './components/ScoreControls'
 import useScoreTracking from './hooks/useScoreTracking'
 import Options from './components/Options'
 import Modal from './components/Modal'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
@@ -166,6 +167,7 @@ function App() {
           </button>
         </div>
       </Modal>
+      <ToastContainer />
     </>
   )
 }
