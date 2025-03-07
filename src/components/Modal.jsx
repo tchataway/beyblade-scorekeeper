@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import useOutsideDetection from '../hooks/useOutsideDetection'
-import SettingsForm from './SettingsForm'
 
 const Modal = ({ header, isOpen, closeModal, children }) => {
   const containerRef = useRef(null)

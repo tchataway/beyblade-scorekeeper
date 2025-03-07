@@ -88,6 +88,7 @@ code {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+  user-select: none;
 }
 
 .matchScores {
@@ -97,6 +98,7 @@ code {
   width: 100%;
   gap: 1rem;
   font-size: 18pt;
+  user-select: none;
 }
 
 .optionsContainer {
