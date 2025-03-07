@@ -131,8 +131,8 @@ code {
 
 .scoreButton {
   border-radius: 30%;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   font-weight: 600;
   font-size: 36pt;
   user-select: none;
