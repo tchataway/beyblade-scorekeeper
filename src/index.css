@@ -292,3 +292,15 @@ code {
   color: #888;
   margin-top: 0.8rem;
 }
+
+@media (orientation: portrait) {
+  html {
+    transform: rotate(90deg);
+    transform-origin: right top;
+    width: 100vh;
+    height: 100vw;
+    position: absolute;
+    top: 100%;
+    right: 0;
+  }
+}
