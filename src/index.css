@@ -89,6 +89,10 @@ code {
   top: 50%;
   transform: translate(0, -50%);
   user-select: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 .matchScores {
@@ -99,6 +103,10 @@ code {
   gap: 1rem;
   font-size: 18pt;
   user-select: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 .optionsContainer {
@@ -122,21 +130,26 @@ code {
 }
 
 .positionForRight {
-  right: 0;
+  right: 1%;
 }
 
 .positionForLeft {
-  left: 0;
+  left: 1%;
 }
 
 .scoreButton {
   border-radius: 30%;
-  width: 90px;
-  height: 90px;
+  width: 6rem;
+  max-width: 24vh;
+  height: 6rem;
+  max-height: 14vw;
   font-weight: 600;
   font-size: 36pt;
   user-select: none;
-  border: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 .scoreButton:disabled {
