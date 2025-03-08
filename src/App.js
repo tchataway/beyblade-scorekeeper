@@ -154,17 +154,17 @@ function App() {
         isOpen={showMatchResultModal}
         closeModal={() => setShowMatchResultModal(false)}
       >
-        <div
-          style={{ textAlign: 'center', overflow: 'auto', maxHeight: '180px' }}
-        >
-          {matchReport().map((reportLine, index) => (
-            <div key={index}>{reportLine}</div>
-          ))}
-        </div>
-        <div className='modalButtons'>
-          <button className='buttonPrimary' onClick={handleNewMatch}>
-            New Match
-          </button>
+        <div className='modalBody'>
+          <div className='modalVariableSizeContainer matchReport'>
+            {matchReport().map((reportLine, index) => (
+              <div key={index}>{reportLine}</div>
+            ))}
+          </div>
+          <div className='modalButtons'>
+            <button className='buttonPrimary' onClick={handleNewMatch}>
+              New Match
+            </button>
+          </div>
         </div>
       </Modal>
       <ToastContainer />

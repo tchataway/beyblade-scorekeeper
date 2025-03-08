@@ -39,42 +39,44 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='settingsFormItem'>
-        <label htmlFor='pointsPerRound' className='modalText'>
-          Points per round
-        </label>
-        <input
-          id='pointsPerRound'
-          type='text'
-          inputMode='numeric'
-          pattern='[0-9]*'
-          value={pointsPerRound}
-          onChange={handleFormChange}
-          className='input'
-          ref={pointsPerRoundRef}
-          onFocus={() => {
-            pointsPerRoundRef.current.select()
-          }}
-        />
-      </div>
-      <div className='settingsFormItem'>
-        <label htmlFor='roundsPerMatch' className='modalText'>
-          Rounds per match
-        </label>
-        <input
-          id='roundsPerMatch'
-          type='text'
-          inputMode='numeric'
-          pattern='[0-9]*'
-          value={roundsPerMatch}
-          onChange={handleFormChange}
-          className='input'
-          ref={roundsPerMatchRef}
-          onFocus={() => {
-            roundsPerMatchRef.current.select()
-          }}
-        />
+    <form onSubmit={handleSubmit} className='modalBody'>
+      <div className='modalVariableSizeContainer'>
+        <div className='settingsFormItem'>
+          <label htmlFor='pointsPerRound' className='modalText'>
+            Points per round
+          </label>
+          <input
+            id='pointsPerRound'
+            type='text'
+            inputMode='numeric'
+            pattern='[0-9]*'
+            value={pointsPerRound}
+            onChange={handleFormChange}
+            className='input'
+            ref={pointsPerRoundRef}
+            onFocus={() => {
+              pointsPerRoundRef.current.select()
+            }}
+          />
+        </div>
+        <div className='settingsFormItem'>
+          <label htmlFor='roundsPerMatch' className='modalText'>
+            Rounds per match
+          </label>
+          <input
+            id='roundsPerMatch'
+            type='text'
+            inputMode='numeric'
+            pattern='[0-9]*'
+            value={roundsPerMatch}
+            onChange={handleFormChange}
+            className='input'
+            ref={roundsPerMatchRef}
+            onFocus={() => {
+              roundsPerMatchRef.current.select()
+            }}
+          />
+        </div>
       </div>
       <div className='modalButtons'>
         <button type='submit' className='button buttonPrimary'>

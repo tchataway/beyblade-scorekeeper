@@ -195,12 +195,18 @@ code {
 
 /* Modal Content/Box */
 .modal-content {
+  position: absolute;
   background-color: #3b3b3b;
-  margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
+  top: 5%;
+  left: 50%;
+  height: 90%;
+  transform: translate(-50%, 0);
   overflow: none;
+  display: flex;
+  flex-direction: column;
 }
 
 /* The Close Button */
@@ -209,6 +215,8 @@ code {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  position: absolute;
+  right: 5%;
 }
 
 .close:hover,
@@ -226,6 +234,7 @@ code {
 }
 
 .modalContainer {
+  flex-grow: 1;
   font-size: 24px;
 }
 
@@ -233,6 +242,22 @@ code {
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.modalVariableSizeContainer {
+  height: 1px;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.matchReport {
+  text-align: center;
 }
 
 .modalText {
