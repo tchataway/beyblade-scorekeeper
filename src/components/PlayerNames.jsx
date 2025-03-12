@@ -49,7 +49,7 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
       <div className='playerNameContainer'>
         {!editingBladerOne && (
           <h1
-            className='playerName'
+            className='playerName red'
             ref={bladerOneNameRef}
             style={{ fontSize: `${bladerOneFontSize}px`, marginLeft: 'auto' }}
             onClick={() => {
@@ -72,7 +72,7 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
                 marginLeft: 'auto',
               }}
               type='text'
-              className='playerNameEntry'
+              className='playerNameEntry red'
             />
           </>
         )}
@@ -80,7 +80,7 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
       <div className='playerNameContainer'>
         {!editingBladerTwo && (
           <h1
-            className='playerName'
+            className='playerName blue'
             ref={bladerTwoNameRef}
             style={{ fontSize: `${bladerTwoFontSize}px`, marginRight: 'auto' }}
             onClick={() => {
@@ -103,7 +103,7 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
                 marginRight: 'auto',
               }}
               type='text'
-              className='playerNameEntry'
+              className='playerNameEntry blue'
             />
           </>
         )}

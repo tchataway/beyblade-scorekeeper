@@ -122,8 +122,15 @@ code {
   align-items: center;
 }
 
+.red {
+  color: var(--red);
+}
+
+.blue {
+  color: var(--blue);
+}
+
 .playerName {
-  mix-blend-mode: difference;
   white-space: nowrap;
   min-width: 0;
   width: fit-content;
@@ -131,7 +138,6 @@ code {
 
 .playerNameEntry {
   text-align: right;
-  mix-blend-mode: difference;
   white-space: nowrap;
   width: auto;
   margin: 0;
