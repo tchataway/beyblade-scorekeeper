@@ -70,7 +70,6 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
                 fontSize: `${bladerOneFontSize}px`,
                 width: `${bladerOneNameEntryWidth}ch`,
                 marginLeft: 'auto',
-                fontFamily: 'Consolas',
               }}
               type='text'
               className='playerNameEntry'
@@ -102,7 +101,6 @@ const PlayerNames = ({ scoreControlsLeftRef, scoreControlsRightRef }) => {
                 fontSize: `${bladerTwoFontSize}px`,
                 width: `${bladerTwoNameEntryWidth}ch`,
                 marginRight: 'auto',
-                fontFamily: 'Consolas',
               }}
               type='text'
               className='playerNameEntry'
