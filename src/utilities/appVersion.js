@@ -1,5 +1,5 @@
 const appVersion = () => {
-  return '0.6.1'
+  return '1.0.0'
 }
 
 export default appVersion
