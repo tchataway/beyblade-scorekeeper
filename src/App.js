@@ -15,7 +15,7 @@ function App() {
   const [gameSettings, setGameSettings] = useState({
     pointsPerRound: 5,
     roundsPerMatch: 3,
-    showPlayerNames: true,
+    showPlayerNames: false,
   })
   const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
   const [showMatchResultModal, setShowMatchResultModal] = useState(false)
