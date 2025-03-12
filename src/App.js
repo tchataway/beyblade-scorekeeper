@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Scoreboard from './components/Scoreboard'
 import ScoreControls from './components/ScoreControls'
 import useScoreTracking from './hooks/useScoreTracking'
 import Options from './components/Options'
 import Modal from './components/Modal'
 import { ToastContainer } from 'react-toastify'
+import PlayerNames from './components/PlayerNames'
 
 function App() {
+  const scoreControlsLeftRef = useRef()
+  const scoreControlsRightRef = useRef()
   const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
     useScoreTracking()
   const [gameSettings, setGameSettings] = useState({
     pointsPerRound: 5,
     roundsPerMatch: 3,
+    showPlayerNames: true,
   })
   const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
   const [showMatchResultModal, setShowMatchResultModal] = useState(false)
@@ -118,12 +122,19 @@ function App() {
         player2Scores={player2Scores}
         fade={roundEndConfirmation || matchOver}
       />
+      {gameSettings.showPlayerNames && (
+        <PlayerNames
+          scoreControlsLeftRef={scoreControlsLeftRef}
+          scoreControlsRightRef={scoreControlsRightRef}
+        />
+      )}
       <Options
         undoAndRedo={undoAndRedo}
         onOptionsChanged={handleOptionsChanged}
         currentOptions={gameSettings}
       />
       <ScoreControls
+        ref={scoreControlsLeftRef}
         side='left'
         onBurst={() => handlePlayer1Score(2)}
         onSpin={() => handlePlayer1Score(1)}
@@ -132,6 +143,7 @@ function App() {
         lockControls={roundEndConfirmation || matchOver}
       />
       <ScoreControls
+        ref={scoreControlsRightRef}
         side='right'
         onBurst={() => handlePlayer2Score(2)}
         onSpin={() => handlePlayer2Score(1)}

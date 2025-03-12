@@ -1,20 +1,30 @@
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import appVersion from '../utilities/appVersion'
+import ToggleSwitch from './ToggleSwitch'
 
 const SettingsForm = ({ defaultOptions, onSubmit }) => {
   const [settingsData, setSettingsData] = useState({
     pointsPerRound: defaultOptions.pointsPerRound,
     roundsPerMatch: defaultOptions.roundsPerMatch,
+    showPlayerNames: defaultOptions.showPlayerNames,
   })
   const pointsPerRoundRef = useRef(null)
   const roundsPerMatchRef = useRef(null)
-  const { pointsPerRound, roundsPerMatch } = settingsData
+  const { pointsPerRound, roundsPerMatch, showPlayerNames } = settingsData
 
   const handleFormChange = (e) => {
+    // Maybe cast boolean text to nullable boolean.
+    let nullableBoolean = null
+    if (e.target.value === 'true') {
+      nullableBoolean = true
+    } else if (e.target.value === 'false') {
+      nullableBoolean = false
+    }
+
     setSettingsData((prevState) => ({
       ...prevState,
-      [e.target.id]: Number(e.target.value),
+      [e.target.id]: nullableBoolean ?? Number(e.target.value),
     }))
   }
 
@@ -75,6 +85,20 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
             onFocus={() => {
               roundsPerMatchRef.current.select()
             }}
+          />
+        </div>
+        <div className='settingsFormItem'>
+          <label htmlFor='showPlayerNames' className='modalText'>
+            Show blader names
+          </label>
+          <ToggleSwitch
+            isChecked={showPlayerNames}
+            onChange={() =>
+              setSettingsData((prevState) => ({
+                ...prevState,
+                showPlayerNames: !prevState.showPlayerNames,
+              }))
+            }
           />
         </div>
       </div>

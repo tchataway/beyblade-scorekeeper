@@ -1,5 +1,6 @@
 // It's just some buttons, really.
 const ScoreControls = ({
+  ref,
   side,
   onBurst,
   onSpin,
@@ -24,7 +25,7 @@ const ScoreControls = ({
   }
 
   return (
-    <div className={`scoreControlsContainer ${position}`}>
+    <div ref={ref} className={`scoreControlsContainer ${position}`}>
       <button
         className={`scoreButton spin ${rotation}`}
         onClick={onSpin}
