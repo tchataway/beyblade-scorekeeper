@@ -7,6 +7,7 @@
     "@chakra-ui/react": "^2.10.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@statsig/react-bindings": "^3.14.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",

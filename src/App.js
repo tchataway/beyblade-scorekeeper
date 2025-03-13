@@ -6,8 +6,13 @@ import Options from './components/Options'
 import Modal from './components/Modal'
 import { ToastContainer } from 'react-toastify'
 import PlayerNames from './components/PlayerNames'
+import { StatsigProvider, useClientAsyncInit } from '@statsig/react-bindings'
 
 function App() {
+  const { client } = useClientAsyncInit(
+    process.env.REACT_APP_NEXT_PUBLIC_STATSIG_CLIENT_KEY,
+    { userID: 'default' }
+  )
   const scoreControlsLeftRef = useRef()
   const scoreControlsRightRef = useRef()
   const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
@@ -115,7 +120,7 @@ function App() {
     roundEndConfirmation || matchOver ? 'backgroundX redX' : 'backgroundX'
 
   return (
-    <>
+    <StatsigProvider client={client}>
       <div className={xStyling} />
       <Scoreboard
         player1Scores={player1Scores}
@@ -180,7 +185,7 @@ function App() {
         </div>
       </Modal>
       <ToastContainer />
-    </>
+    </StatsigProvider>
   )
 }
 
