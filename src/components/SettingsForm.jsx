@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import appVersion from '../utilities/appVersion'
 import ToggleSwitch from './ToggleSwitch'
+import useFlag from '../hooks/useFlag'
 
 const SettingsForm = ({ defaultOptions, onSubmit }) => {
   const [settingsData, setSettingsData] = useState({
@@ -11,6 +12,7 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
   })
   const pointsPerRoundRef = useRef(null)
   const roundsPerMatchRef = useRef(null)
+  const testFlagValue = useFlag('my_first_gate')
   const { pointsPerRound, roundsPerMatch, showPlayerNames } = settingsData
 
   const handleFormChange = (e) => {
@@ -110,7 +112,9 @@ const SettingsForm = ({ defaultOptions, onSubmit }) => {
           New Match
         </button>
       </div>
-      <div className='appVersion'>App Version: v{appVersion()}</div>
+      <div className='appVersion'>
+        {testFlagValue ? `${appVersion()}` : `App Version: v${appVersion()}`}
+      </div>
     </form>
   )
 }
