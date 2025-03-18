@@ -45,6 +45,9 @@ function App() {
     canRedo,
   }
 
+  const lockControls = roundEndConfirmation || matchOver
+  const xStyling = lockControls ? 'backgroundX redX' : 'backgroundX'
+
   // Update UI on score changes.
   useEffect(() => {
     // Check if round is over.
@@ -116,16 +119,13 @@ function App() {
     reset()
   }
 
-  const xStyling =
-    roundEndConfirmation || matchOver ? 'backgroundX redX' : 'backgroundX'
-
   return (
     <StatsigProvider client={client}>
       <div className={xStyling} />
       <Scoreboard
         player1Scores={player1Scores}
         player2Scores={player2Scores}
-        fade={roundEndConfirmation || matchOver}
+        fade={lockControls}
       />
       {gameSettings.showPlayerNames && (
         <PlayerNames
@@ -133,11 +133,6 @@ function App() {
           scoreControlsRightRef={scoreControlsRightRef}
         />
       )}
-      <Options
-        undoAndRedo={undoAndRedo}
-        onOptionsChanged={handleOptionsChanged}
-        currentOptions={gameSettings}
-      />
       <ScoreControls
         ref={scoreControlsLeftRef}
         side='left'
@@ -145,7 +140,7 @@ function App() {
         onSpin={() => handlePlayer1Score(1)}
         onXtreme={() => handlePlayer1Score(3)}
         onOver={() => handlePlayer1Score(2)}
-        lockControls={roundEndConfirmation || matchOver}
+        lockControls={lockControls}
       />
       <ScoreControls
         ref={scoreControlsRightRef}
@@ -154,7 +149,13 @@ function App() {
         onSpin={() => handlePlayer2Score(1)}
         onXtreme={() => handlePlayer2Score(3)}
         onOver={() => handlePlayer2Score(2)}
-        lockControls={roundEndConfirmation || matchOver}
+        lockControls={lockControls}
+      />
+      {lockControls && <div className='lockOverlay' />}
+      <Options
+        undoAndRedo={undoAndRedo}
+        onOptionsChanged={handleOptionsChanged}
+        currentOptions={gameSettings}
       />
       {roundEndConfirmation && (
         <div className='roundEndControls'>
