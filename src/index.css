@@ -258,7 +258,7 @@ input:checked + .slider:before {
   width: 6rem;
   max-width: 24vh;
   height: 6rem;
-  max-height: 14vw;
+  max-height: 24vw;
   font-weight: 600;
   font-size: 36pt;
   user-select: none;
