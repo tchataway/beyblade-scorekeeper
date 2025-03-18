@@ -16,6 +16,14 @@ const usePlayerName = (
   const [fontSize, setFontSize] = useState(maxFontSize)
   const [editingBlader, setEditingBlader] = useState(false)
   const [bladerNameEntryWidth, setBladerNameEntryWidth] = useState(maxFontSize)
+  const [isPortrait, setIsPortrait] = useState(false)
+
+  // For most browsers, the scorekeeper's orientation is
+  // locked to landscape. Safari is the exception, so we
+  // need extra handling for portrait orientation.
+  window.addEventListener('orientationchange', () => {
+    setIsPortrait(window.matchMedia('(orientation: portrait)').matches)
+  })
 
   const confirmBladerName = () => {
     if (bladerNameEntryRef.current.value === '') {
@@ -35,6 +43,8 @@ const usePlayerName = (
     setBladerNameEntryWidth(bladerName.length)
   }, [bladerName])
 
+  // Resize name when it, its font size, or the orientation
+  // changes, or when the user starts or finishes editing.
   useEffect(() => {
     const ref = editingBlader ? bladerNameEntryRef : bladerNameRef
 
@@ -55,7 +65,7 @@ const usePlayerName = (
     } else if (overlapDelta > 15 && fontSize < maxFontSize) {
       setFontSize((prevState) => prevState + 1)
     }
-  }, [fontSize, bladerName, editingBlader])
+  }, [fontSize, bladerName, editingBlader, isPortrait])
 
   useEffect(() => {
     if (editingBlader) {
