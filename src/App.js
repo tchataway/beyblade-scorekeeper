@@ -18,8 +18,8 @@ function App() {
   const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
     useScoreTracking()
   const [gameSettings, setGameSettings] = useState({
-    pointsPerRound: 5,
-    roundsPerMatch: 3,
+    pointsPerRound: 4,
+    roundsPerMatch: 1,
     showPlayerNames: false,
   })
   const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
