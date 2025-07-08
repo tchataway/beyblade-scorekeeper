@@ -1,21 +1,48 @@
 import { useEffect, useState } from 'react'
+import * as AppStorage from '../AppStorage'
+
+const DEFAULT_SCORES = {
+  playerOneRounds: 0,
+  playerOnePoints: 0,
+  playerTwoRounds: 0,
+  playerTwoPoints: 0,
+}
 
 const useScoreTracking = () => {
-  const [scores, setScores] = useState({
-    playerOneRounds: 0,
-    playerOnePoints: 0,
-    playerTwoRounds: 0,
-    playerTwoPoints: 0,
-  })
-  const [undoables, setUndoables] = useState([])
-  const [redoables, setRedoables] = useState([])
-  const [canUndo, setCanUndo] = useState(false)
-  const [canRedo, setCanRedo] = useState(false)
+  const localScores = AppStorage.get('scores')
+  const defaultScores = localScores ? JSON.parse(localScores) : DEFAULT_SCORES
+  const [scores, setScores] = useState(defaultScores)
+
+  const localUndoables = AppStorage.get('undoables')
+  const defaultUndoables = localUndoables ? JSON.parse(localUndoables) : []
+  const [undoables, setUndoables] = useState(defaultUndoables)
+
+  const localRedoables = AppStorage.get('redoables')
+  const defaultRedoables = localRedoables ? JSON.parse(localRedoables) : []
+  const [redoables, setRedoables] = useState(defaultRedoables)
+
+  const [canUndo, setCanUndo] = useState(defaultUndoables.length > 0)
+  const [canRedo, setCanRedo] = useState(defaultRedoables.length > 0)
 
   useEffect(() => {
     setCanUndo(undoables.length > 0)
     setCanRedo(redoables.length > 0)
   }, [undoables, redoables])
+
+  const updateScores = (newScores) => {
+    AppStorage.set('scores', JSON.stringify(newScores))
+    setScores(newScores)
+  }
+
+  const updateUndoables = (newUndoables) => {
+    AppStorage.set('undoables', JSON.stringify(newUndoables))
+    setUndoables(newUndoables)
+  }
+
+  const updateRedoables = (newRedoables) => {
+    AppStorage.set('redoables', JSON.stringify(newRedoables))
+    setRedoables(newRedoables)
+  }
 
   const processCommand = (command) => {
     let newPoints
@@ -23,12 +50,18 @@ const useScoreTracking = () => {
     switch (command.name) {
       case 'addPointsPlayerOne':
         newPoints = scores.playerOnePoints + command.value
-        setScores((prevState) => ({ ...prevState, playerOnePoints: newPoints }))
+        updateScores({
+          ...scores,
+          playerOnePoints: newPoints,
+        })
         break
 
       case 'addPointsPlayerTwo':
         newPoints = scores.playerTwoPoints + command.value
-        setScores((prevState) => ({ ...prevState, playerTwoPoints: newPoints }))
+        updateScores({
+          ...scores,
+          playerTwoPoints: newPoints,
+        })
         break
 
       case 'confirmRoundResult':
@@ -54,13 +87,13 @@ const useScoreTracking = () => {
           }
 
           // Update state.
-          setScores((prevState) => ({
-            ...prevState,
+          updateScores({
+            ...scores,
             playerOneRounds: updatedPlayerOneRounds,
             playerTwoRounds: updatedPlayerTwoRounds,
             playerOnePoints: 0,
             playerTwoPoints: 0,
-          }))
+          })
         } else if (command.value === -1) {
           // A value of 1 indicates we are "undoing" a
           // round result. This involves subtracting from
@@ -80,13 +113,13 @@ const useScoreTracking = () => {
             updatedPlayerTwoRounds += command.value
           }
 
-          setScores((prevState) => ({
-            ...prevState,
+          updateScores({
+            ...scores,
             playerOneRounds: updatedPlayerOneRounds,
             playerTwoRounds: updatedPlayerTwoRounds,
             playerOnePoints: playerOneEndofRoundPoints,
             playerTwoPoints: playerTwoEndofRoundPoints,
-          }))
+          })
         }
         break
 
@@ -102,10 +135,10 @@ const useScoreTracking = () => {
     // Update undoables.
     let updatedUndoables = [...undoables]
     updatedUndoables.push(command)
-    setUndoables(updatedUndoables)
+    updateUndoables(updatedUndoables)
 
     // Clear redoables.
-    setRedoables([])
+    updateRedoables([])
   }
 
   const undo = () => {
@@ -117,7 +150,7 @@ const useScoreTracking = () => {
     // Before continuing, add a copy of this to redoables.
     let updatedRedoables = [...redoables]
     updatedRedoables.push({ ...commandToUndo })
-    setRedoables(updatedRedoables)
+    updateRedoables(updatedRedoables)
 
     // Invert value for command.
     commandToUndo.value = -commandToUndo.value
@@ -126,7 +159,7 @@ const useScoreTracking = () => {
     processCommand(commandToUndo)
 
     // Update undoables collection.
-    setUndoables(updatedUndoables)
+    updateUndoables(updatedUndoables)
   }
 
   const redo = () => {
@@ -138,13 +171,13 @@ const useScoreTracking = () => {
     // Before continuing, add a copy of this to undoables.
     let updatedUndoables = [...undoables]
     updatedUndoables.push({ ...commandToRedo })
-    setUndoables(updatedUndoables)
+    updateUndoables(updatedUndoables)
 
     // Process command.
     processCommand(commandToRedo)
 
     // Update redoables collection.
-    setRedoables(updatedRedoables)
+    updateRedoables(updatedRedoables)
   }
 
   const matchReport = () => {
@@ -177,14 +210,9 @@ const useScoreTracking = () => {
   }
 
   const reset = () => {
-    setScores({
-      playerOneRounds: 0,
-      playerOnePoints: 0,
-      playerTwoRounds: 0,
-      playerTwoPoints: 0,
-    })
-    setUndoables([])
-    setRedoables([])
+    updateScores(DEFAULT_SCORES)
+    updateUndoables([])
+    updateRedoables([])
   }
 
   return {

@@ -7,6 +7,13 @@ import Modal from './components/Modal'
 import { ToastContainer } from 'react-toastify'
 import PlayerNames from './components/PlayerNames'
 import { StatsigProvider, useClientAsyncInit } from '@statsig/react-bindings'
+import * as AppStorage from './AppStorage'
+
+const DEFAULT_GAME_SETTINGS = {
+  pointsPerRound: 5,
+  roundsPerMatch: 3,
+  showPlayerNames: false,
+}
 
 function App() {
   const { client } = useClientAsyncInit(
@@ -17,11 +24,12 @@ function App() {
   const scoreControlsRightRef = useRef()
   const { scores, execute, undo, redo, canUndo, canRedo, matchReport, reset } =
     useScoreTracking()
-  const [gameSettings, setGameSettings] = useState({
-    pointsPerRound: 5,
-    roundsPerMatch: 3,
-    showPlayerNames: false,
-  })
+  const localSettings = AppStorage.get('settings')
+  const defaultSettings = localSettings
+    ? JSON.parse(localSettings)
+    : DEFAULT_GAME_SETTINGS
+  const [gameSettings, setGameSettings] = useState(defaultSettings)
+
   const [roundEndConfirmation, setRoundEndConfirmation] = useState(false)
   const [showMatchResultModal, setShowMatchResultModal] = useState(false)
   const [matchOver, setMatchOver] = useState(false)
@@ -104,6 +112,9 @@ function App() {
       reset()
       return
     }
+
+    // Update localStorage.
+    AppStorage.set('settings', JSON.stringify(newOptions))
 
     setGameSettings(newOptions)
   }
